@@ -22,7 +22,6 @@ async function bootstrapServer() {
 
 export default bootstrapServer;
 
-
 if (process.env.NODE_ENV !== 'production') {
   bootstrap();
 }
