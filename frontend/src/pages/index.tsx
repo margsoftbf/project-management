@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
 
+interface Property {
+  id: string;
+  name?: string;
+  address?: string;
+  price?: number;
+  created_at?: string;
+}
+
 function HomePage() {
-  const [properties, setProperties] = useState<any[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
