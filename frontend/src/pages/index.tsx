@@ -48,7 +48,10 @@ function HomePage() {
   useEffect(() => {
     async function checkBackend() {
       try {
-        const backendUrl = process.env.NEXT_PUBLIC_API_URL
+        // Dynamiczne wybieranie URL
+        const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+        
+        console.log('Próba połączenia z backendem, URL:', backendUrl);
         
         const response = await fetch(`${backendUrl}/api/test`);
         
@@ -57,9 +60,11 @@ function HomePage() {
         }
         
         const data = await response.json();
+        console.log('Odpowiedź backendu:', data);
+        
         setBackendStatus(data.message);
       } catch (err) {
-        console.error('Backend connection error:', err);
+        console.error('Błąd połączenia z backendem:', err);
         setBackendStatus('Błąd połączenia z backendem');
       } finally {
         setBackendLoading(false);
@@ -68,7 +73,7 @@ function HomePage() {
   
     checkBackend();
   }, []);
-
+  
   return (
     <main className='flex min-h-screen flex-col items-center justify-center p-24'>
       <h1 className='text-4xl font-bold mb-8'>Property Management</h1>
