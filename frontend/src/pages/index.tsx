@@ -48,17 +48,24 @@ function HomePage() {
   useEffect(() => {
     async function checkBackend() {
       try {
-        const response = await fetch('http://localhost:3001/api/test');
+        const backendUrl = process.env.NEXT_PUBLIC_API_URL
+        
+        const response = await fetch(`${backendUrl}/api/test`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         setBackendStatus(data.message);
       } catch (err) {
-        console.error(err);
+        console.error('Backend connection error:', err);
         setBackendStatus('Błąd połączenia z backendem');
       } finally {
         setBackendLoading(false);
       }
     }
-
+  
     checkBackend();
   }, []);
 
