@@ -11,24 +11,14 @@ async function bootstrap(): Promise<INestApplication> {
     });
     app.enableCors();
     await app.init();
-    console.log('Application initialized');
   }
   return app;
 }
 
 export default async (req, res) => {
   const app = await bootstrap();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const server = app.getHttpAdapter().getInstance();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
   return server(req, res);
 };
-
-if (process.env.NODE_ENV !== 'production') {
-  bootstrap()
-    .then((app) => {
-      const port = process.env.PORT || 3001;
-      app.listen(port, () => {
-        console.log(`Server running on port ${port}`);
-      });
-    })
-    .catch(console.error);
-}
