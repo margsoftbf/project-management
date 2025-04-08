@@ -6,58 +6,70 @@ import phoneFrame from '@/svg/phone-frame.svg';
 
 export function Hero() {
   return (
-    <div className='overflow-hidden py-20 sm:py-32 lg:pb-32 xl:pb-36'>
-      <div className='lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20'>
-        <div className='relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6'>
-          <h1 className='text-4xl font-medium tracking-tight text-gray-900'>
-            <span className='block font-light text-blue-800'>Property</span>
-            <span className='block font-bold text-blue-600'>Management</span>
-            <span className='mt-3 block text-2xl'>Simplified.</span>
-          </h1>
-          <p className='mt-6 text-lg text-gray-600'>
-            Streamline your property management with our all-in-one solution.
-            Track rentals, maintenance requests, and finances all in one place.
-            Perfect for landlords, property managers, and real estate
-            professionals.
-          </p>
-          <div className='mt-8 flex flex-wrap gap-x-6 gap-y-4'>
-            <Button href='/properties'>Get Started</Button>
-            <Button href='/demo' variant='outline'>
-              <PlayIcon className='h-6 w-6 flex-none' />
-              <span className='ml-2.5'>Watch the demo</span>
-            </Button>
+    <div className='overflow-hidden'>
+      <div className='py-20 sm:py-32 lg:pb-32 xl:pb-36 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+        <div className='lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20'>
+          <div className='relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6'>
+            <h1 className='text-4xl font-medium tracking-tight text-gray-900'>
+              <span className='block font-light text-blue-800'>
+                Property <span className='font-semibold'>Management</span>
+              </span>
+              <span className='mt-3 block text-2xl'>Simplified.</span>
+            </h1>
+            <p className='mt-6 text-lg text-gray-600'>
+              Streamline your property management with our all-in-one solution.
+              Track rentals, maintenance requests, and finances all in one
+              place. Perfect for landlords, property managers, and real estate
+              professionals.
+            </p>
+            <div className='mt-8 flex flex-wrap gap-x-6 gap-y-4'>
+              <Button href='/register'>Register Now</Button>
+              <Button href='/features' variant='outline'>
+                <FeatureIcon className='h-6 w-6 flex-none' />
+                <span className='ml-2.5'>See Features</span>
+              </Button>
+            </div>
           </div>
-        </div>
-        <div className='relative mt-10 sm:mt-20 lg:col-span-5 lg:row-span-2 lg:mt-0 xl:col-span-6'>
-          <BackgroundIllustration className='absolute top-4 left-1/2 h-[1026px] w-[1026px] -translate-x-1/3 stroke-gray-300/70 [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] sm:top-16 sm:-translate-x-1/2 lg:-top-16 lg:ml-12 xl:-top-14 xl:ml-0' />
-          <div className='-mx-4 h-[448px] px-9 [mask-image:linear-gradient(to_bottom,white_60%,transparent)] sm:mx-0 lg:absolute lg:-inset-x-10 lg:-top-10 lg:-bottom-20 lg:h-auto lg:px-0 lg:pt-10 xl:-bottom-32'>
-            <PhoneWithDemo />
+          <div className='relative mt-10 sm:mt-20 lg:col-span-5 lg:row-span-2 lg:mt-0 xl:col-span-6'>
+            <BackgroundIllustration className='absolute top-4 left-1/2 h-[1026px] w-[1026px] -translate-x-1/3 stroke-gray-300/70 [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] sm:top-16 sm:-translate-x-1/2 lg:-top-16 lg:ml-12 xl:-top-14 xl:ml-0' />
+            <div className='-mx-4 h-[448px] px-9 [mask-image:linear-gradient(to_bottom,white_60%,transparent)] sm:mx-0 lg:absolute lg:-inset-x-10 lg:-top-10 lg:-bottom-20 lg:h-auto lg:px-0 lg:pt-10 xl:-bottom-32'>
+              <PhoneWithDemo />
+            </div>
           </div>
-        </div>
-        <div className='relative -mt-4 lg:col-span-7 lg:mt-0 xl:col-span-6'>
-          <p className='text-center text-sm font-semibold text-gray-900 lg:text-left'>
-            Trusted by property professionals worldwide
-          </p>
-          <ul
-            role='list'
-            className='mx-auto mt-8 flex max-w-xl flex-wrap justify-center gap-x-10 gap-y-8 lg:mx-0 lg:justify-start'
-          >
-            {[
-              ['Professional', 'Real Estate Agencies'],
-              ['Individual', 'Property Owners'],
-              ['Property', 'Management Companies'],
-              ['Residential', 'Landlords'],
-              ['Commercial', 'Property Investors'],
-            ].map(([name, description]) => (
-              <li
-                key={name}
-                className='flex flex-col items-center lg:items-start'
-              >
-                <span className='font-medium text-blue-600'>{name}</span>
-                <span className='text-xs text-gray-500'>{description}</span>
-              </li>
-            ))}
-          </ul>
+          <div className='relative -mt-4 lg:col-span-7 lg:mt-0 xl:col-span-6'>
+            <p className='text-center text-sm font-semibold text-gray-900 lg:text-left'>
+              Ideal solution for real estate professionals
+            </p>
+            <ul
+              role='list'
+              className='mx-auto mt-6 px-4 max-w-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:mx-0 lg:max-w-none lg:px-0'
+            >
+              {[
+                ['Property Owners', 'Manage your properties effortlessly'],
+                [
+                  'Property Managers',
+                  'Streamline operations and tenant handling',
+                ],
+                [
+                  'Real Estate Agencies',
+                  'Centralized property portfolio management',
+                ],
+                ['Landlords', 'Track payments and lease agreements'],
+                ['Building Admins', 'Maintenance and service request tracking'],
+                ['Investors', 'Monitor ROI and performance metrics'],
+              ].map(([name, description]) => (
+                <li
+                  key={name}
+                  className='flex flex-col items-center border border-gray-100 rounded-lg p-3 shadow-sm bg-white lg:items-start hover:shadow-md transition-shadow duration-200'
+                >
+                  <span className='font-semibold text-blue-600'>{name}</span>
+                  <span className='text-xs text-gray-500 text-center lg:text-left mt-2'>
+                    {description}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -250,7 +262,6 @@ function PhoneWithDemo() {
         </div>
       </div>
 
-      {/* Ramka telefonu */}
       <div className='absolute inset-0'>
         {phoneFrame && (
           <Image
@@ -267,14 +278,14 @@ function PhoneWithDemo() {
   );
 }
 
-function PlayIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function FeatureIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox='0 0 24 24' fill='none' aria-hidden='true' {...props}>
-      <circle cx='12' cy='12' r='11.5' stroke='#D4D4D4' />
       <path
-        d='M9.5 14.382V9.618a.5.5 0 0 1 .724-.447l4.764 2.382a.5.5 0 0 1 0 .894l-4.764 2.382a.5.5 0 0 1-.724-.447Z'
-        fill='#A3A3A3'
-        stroke='#A3A3A3'
+        d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z'
+        stroke='currentColor'
+        strokeWidth='1.5'
+        strokeLinecap='round'
       />
     </svg>
   );

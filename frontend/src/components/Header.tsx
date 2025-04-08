@@ -120,7 +120,7 @@ export function Header() {
                       className='absolute inset-x-0 top-0 z-0 origin-top rounded-b-2xl bg-white px-6 pt-28 pb-8 shadow-xl'
                     >
                       <div className='space-y-5'>
-                        {['Features', 'Reviews', 'Pricing', 'FAQs'].map(
+                        {['Features', 'How It Works', 'For Whom', 'Pricing', 'Contact'].map(
                           (item) => (
                             <motion.div
                               key={item}
@@ -131,9 +131,10 @@ export function Header() {
                                   0.1 *
                                   [
                                     'Features',
-                                    'Reviews',
+                                    'How It Works',
+                                    'For Whom',
                                     'Pricing',
-                                    'FAQs',
+                                    'Contact',
                                   ].indexOf(item),
                               }}
                             >
