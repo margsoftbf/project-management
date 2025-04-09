@@ -79,7 +79,7 @@ export function ForWhom() {
             initial={{ opacity: 0, y: 20 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className='text-center mb-16'
+            className='text-center mb-12'
           >
             <span className='inline-block px-4 py-1.5 bg-blue-900/30 text-blue-400 text-sm font-medium rounded-full mb-4 backdrop-blur-sm border border-blue-800/30'>
               Designed For You
@@ -93,7 +93,7 @@ export function ForWhom() {
             </p>
           </motion.div>
 
-          <div className='flex flex-wrap justify-center gap-3 mb-16'>
+          <div className='flex flex-wrap justify-center gap-2 mb-12'>
             {userTypes.map((type, index) => (
               <motion.button
                 key={type.id}
@@ -104,14 +104,14 @@ export function ForWhom() {
                 onClick={() => setActiveType(type.id)}
               >
                 <div
-                  className={`p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 rounded-xl backdrop-blur-sm transition-all duration-300 ${
+                  className={`p-2.5 sm:p-3 flex items-center space-x-2 rounded-lg backdrop-blur-sm transition-all duration-300 ${
                     activeType === type.id
                       ? 'bg-blue-900/40 border border-blue-700/70'
                       : 'bg-gray-900/80 border border-gray-800/70 hover:bg-gray-800/80'
                   }`}
                 >
                   <div
-                    className={`w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center rounded-lg transition-all duration-300 ${
+                    className={`w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg transition-all duration-300 ${
                       activeType === type.id
                         ? 'bg-blue-800/60 text-blue-300'
                         : 'bg-gray-800/60 text-gray-400 group-hover:text-gray-300'
@@ -120,7 +120,7 @@ export function ForWhom() {
                     {type.icon}
                   </div>
                   <span
-                    className={`text-sm sm:text-base font-medium transition-colors duration-300 ${
+                    className={`text-sm font-medium transition-colors duration-300 ${
                       activeType === type.id
                         ? 'text-blue-300'
                         : 'text-gray-300 group-hover:text-white'
@@ -132,7 +132,7 @@ export function ForWhom() {
                 {activeType === type.id && (
                   <motion.div
                     layoutId='activeIndicator'
-                    className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-12 h-1 bg-blue-500 rounded-full'
+                    className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-0.5 w-10 h-0.5 bg-blue-500 rounded-full'
                     initial={false}
                     transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                   />
