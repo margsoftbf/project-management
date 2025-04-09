@@ -8,6 +8,7 @@ import {
   Home,
   TrendingUp,
 } from 'lucide-react';
+import Link from 'next/link';
 
 export function ForWhom() {
   const [activeType, setActiveType] = useState<string>('property-owners');
@@ -207,7 +208,7 @@ export function ForWhom() {
                           </ul>
 
                           <div className='mt-10'>
-                            <a
+                            <Link
                               href='/register'
                               className='inline-flex items-center text-blue-400 hover:text-blue-300 font-medium group'
                             >
@@ -216,7 +217,7 @@ export function ForWhom() {
                                 <span className='absolute w-5 h-0.5 bg-blue-400 group-hover:translate-x-1 transition-transform duration-300'></span>
                                 <span className='absolute right-0 w-2 h-2 border-t-2 border-r-2 border-blue-400 transform rotate-45 translate-x-0 group-hover:translate-x-1 transition-transform duration-300'></span>
                               </span>
-                            </a>
+                            </Link>
                           </div>
                         </div>
                       </div>
