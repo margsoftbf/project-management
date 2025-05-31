@@ -56,7 +56,6 @@ export class ExceptionConstants {
     RESOURCE_NOT_FOUND: 40_004,
     TEMPORARILY_UNAVAILABLE: 40_005,
   };
-
   public static readonly PropertyErrors = {
     propertyNotFound: {
       code: 50_001,
@@ -84,6 +83,21 @@ export class ExceptionConstants {
     registrationFailed: {
       code: 60_003,
       message: 'Failed to register user',
+    },
+  };
+
+  public static readonly UsersErrors = {
+    userNotFound: {
+      code: 70_001,
+      message: 'User not found',
+    },
+    userProfileUpdateFailed: {
+      code: 70_002,
+      message: 'Failed to update user profile',
+    },
+    userInactive: {
+      code: 70_003,
+      message: 'User account is inactive',
     },
   };
 }

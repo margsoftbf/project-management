@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from '../users/entities/user.entity';
 import { RegisterDto } from './dto/register.dto';
@@ -15,10 +16,11 @@ import {
 export class AuthService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>
+    private userRepository: Repository<User>,
+    private jwtService: JwtService
   ) {}
 
-  async register(registerDto: RegisterDto) {
+  async register(registerDto: RegisterDto): Promise<void> {
     const existingUser = await this.userRepository.findOne({
       where: { email: registerDto.email },
     });
@@ -28,6 +30,7 @@ export class AuthService {
         ExceptionConstants.AuthErrors.userAlreadyExists
       );
     }
+
     const passwordHash = await bcrypt.hash(registerDto.password, 10);
 
     const user = this.userRepository.create({
@@ -41,21 +44,10 @@ export class AuthService {
       slug: `${registerDto.firstName}-${registerDto.lastName}-${Date.now()}`.toLowerCase(),
     });
 
-    const savedUser = await this.userRepository.save(user);
-
-    return {
-      message: 'User successfully registered',
-      user: {
-        id: savedUser.id,
-        email: savedUser.email,
-        firstName: savedUser.firstName,
-        lastName: savedUser.lastName,
-        role: savedUser.role,
-      },
-    };
+    await this.userRepository.save(user);
   }
 
-  async login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto): Promise<{ access_token: string }> {
     const user = await this.userRepository.findOne({
       where: { email: loginDto.email },
     });
@@ -83,15 +75,18 @@ export class AuthService {
       );
     }
 
-    return {
-      message: 'Login successful',
-      user: {
-        id: user.id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role,
-      },
+    await this.userRepository.update(user.id, {
+      lastLoginAt: new Date(),
+    });
+
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
     };
+
+    const access_token = this.jwtService.sign(payload);
+
+    return { access_token };
   }
 }
