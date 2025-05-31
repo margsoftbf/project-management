@@ -14,4 +14,12 @@ export class AppController {
   getTest(): { message: string } {
     return { message: 'Backend API działa poprawnie!' };
   }
+
+  @Get('health')
+  getHealth(): { status: string; timestamp: string } {
+    return {
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+    };
+  }
 }

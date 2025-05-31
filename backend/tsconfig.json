@@ -16,6 +16,14 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@/*": ["src/*"],
+      "@mod/*": ["src/modules/*"],
+      "@share/*": ["src/shared/*"],
+      "@util/*": ["src/utils/*"],
+      "@decorators/*": ["src/shared/decorators/*"],
+      "test/*": ["test/*"]
+    }
   }
 }

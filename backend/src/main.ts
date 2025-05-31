@@ -1,15 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 
 let app: INestApplication;
 
 async function bootstrap(): Promise<INestApplication> {
   if (!app) {
     app = await NestFactory.create(AppModule, {
-      logger: ['error', 'warn'],
+      logger: ['error', 'warn', 'log'],
     });
     app.enableCors();
+    app.useGlobalPipes(new ValidationPipe());
     await app.init();
   }
   return app;
