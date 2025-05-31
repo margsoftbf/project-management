@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { ReadUserInfoDto } from './dto/read-user-info.dto';
-import { ExceptionConstants } from '@/shared/exceptions';
+import { ExceptionConstants } from '../../../exceptions';
 
 @Injectable()
 export class UsersUserService {
