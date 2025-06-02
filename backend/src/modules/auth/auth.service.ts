@@ -10,7 +10,7 @@ import {
   BadRequestException,
   ExceptionConstants,
   UnauthorizedException,
-} from '../../shared/exceptions';
+} from '../../exceptions';
 
 @Injectable()
 export class AuthService {

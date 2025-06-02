@@ -23,14 +23,14 @@ export function Header() {
             >
               <Logo
                 className='h-10 w-auto'
-                primaryColor='#1e40af'
-                secondaryColor='#1e40af'
+                primaryColor='#003566'
+                secondaryColor='#003566'
               />
               <span className='flex items-center font-montserrat'>
-                <span className='text-lg font-medium text-blue-800'>
+                <span className='text-lg font-medium text-[#003566]'>
                   Property
                 </span>
-                <span className='text-lg font-bold text-[#1e40af]'>
+                <span className='text-lg font-bold text-[#003566]'>
                   Manager
                 </span>
               </span>
@@ -120,37 +120,41 @@ export function Header() {
                       className='absolute inset-x-0 top-0 z-0 origin-top rounded-b-2xl bg-white px-6 pt-28 pb-8 shadow-xl'
                     >
                       <div className='space-y-5'>
-                        {['Features', 'How It Works', 'For Whom', 'Pricing', 'Contact'].map(
-                          (item) => (
-                            <motion.div
-                              key={item}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{
-                                delay:
-                                  0.1 *
-                                  [
-                                    'Features',
-                                    'How It Works',
-                                    'For Whom',
-                                    'Pricing',
-                                    'Contact',
-                                  ].indexOf(item),
-                              }}
+                        {[
+                          'Features',
+                          'How It Works',
+                          'For Whom',
+                          'Pricing',
+                          'Contact',
+                        ].map((item) => (
+                          <motion.div
+                            key={item}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                              delay:
+                                0.1 *
+                                [
+                                  'Features',
+                                  'How It Works',
+                                  'For Whom',
+                                  'Pricing',
+                                  'Contact',
+                                ].indexOf(item),
+                            }}
+                          >
+                            <Link
+                              href={`/#${item.toLowerCase()}`}
+                              className='group flex items-center py-2 text-base font-medium tracking-tight text-gray-800 transition-colors hover:text-gray-900'
+                              onClick={() => setMobileMenuOpen(false)}
                             >
-                              <Link
-                                href={`/#${item.toLowerCase()}`}
-                                className='group flex items-center py-2 text-base font-medium tracking-tight text-gray-800 transition-colors hover:text-gray-900'
-                                onClick={() => setMobileMenuOpen(false)}
-                              >
-                                <span className='relative'>
-                                  {item}
-                                  <span className='absolute -bottom-1 left-0 h-0.5 w-0 bg-gray-900 transition-all group-hover:w-full'></span>
-                                </span>
-                              </Link>
-                            </motion.div>
-                          )
-                        )}
+                              <span className='relative'>
+                                {item}
+                                <span className='absolute -bottom-1 left-0 h-0.5 w-0 bg-gray-900 transition-all group-hover:w-full'></span>
+                              </span>
+                            </Link>
+                          </motion.div>
+                        ))}
                       </div>
                       <div className='mt-8 flex flex-col gap-3'>
                         <Button
