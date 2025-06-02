@@ -5,7 +5,7 @@ A comprehensive property management application that enables property owners to 
 ## Tech Stack
 
 **Frontend:**
-- Next.js (App Router) - React framework with server-side rendering
+- Next.js (Page Router) - React framework with server-side rendering
 - React - UI library
 - TypeScript - Strongly typed JavaScript
 - Tailwind CSS - Utility-first CSS framework
@@ -14,10 +14,8 @@ A comprehensive property management application that enables property owners to 
 - NestJS - Progressive Node.js framework
 - TypeORM - ORM for TypeScript and JavaScript
 - PostgreSQL - Relational database
-- GraphQL (Apollo Server) - Query language and API runtime
 
 **Other:**
-- Docker - Application containerization
 - Jest - Unit and E2E testing
 - GitHub Actions - CI/CD
 
@@ -133,21 +131,13 @@ cd frontend
 yarn install
 
 # Configuration
-cp .env.local.example .env.local
+cp .env.local
 # Fill environment variables
 
 # Start application
 yarn dev
 ```
 
-**Docker (Optional):**
-```bash
-# Run entire stack
-docker-compose up -d
-
-# Run migrations in container
-docker-compose exec backend yarn migration:run
-```
 
 ## Testing
 
@@ -165,25 +155,6 @@ yarn test:e2e:watch
 yarn test:e2e src/auth/auth.service.spec.ts
 ```
 
-**Frontend Tests:**
-```bash
-cd frontend
-
-# Unit tests
-yarn test
-
-# E2E tests
-yarn test:e2e
-
-# Watch mode
-yarn test:watch
-```
-
-## API Documentation
-
-GraphQL Playground available at: `http://localhost:3001/graphql`
-
-REST API documentation: `http://localhost:3001/api/docs`
 
 ## Environment Variables
 

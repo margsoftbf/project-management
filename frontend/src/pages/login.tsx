@@ -1,82 +1,18 @@
-import { useState } from 'react';
-import { type Metadata } from 'next';
-import Link from 'next/link';
-import { Building, Eye, EyeOff } from 'lucide-react';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-const loginSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-  password: z.string().min(1, { message: 'Password is required' }),
-  rememberMe: z.boolean().optional(),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
-
-export const metadata: Metadata = {
-  title: 'Sign In',
-};
+import RegisterLogo from '@/components/register/RegisterLogo';
+import { useLoginForm } from '../hooks/useLoginForm';
+import InputField from '@/components/common/InputField';
+import PasswordField from '@/components/common/PasswordField';
 
 export default function Login() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [loginError, setLoginError] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [success, setSuccess] = useState<boolean>(false);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isRegistered, setIsRegistered] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-    },
-  });
-
-  const onSubmit = async (data: LoginFormValues) => {
-    try {
-      setIsSubmitting(true);
-      setLoginError(null);
-
-      console.log('Login data:', data);
-
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      setSuccess(true);
-    } catch (error) {
-      console.error('Login error:', error);
-      setLoginError(
-        error instanceof Error
-          ? error.message
-          : 'Invalid email or password. Please try again.'
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const { formData, errors, isSubmitting, handleChange, handleSubmit } =
+    useLoginForm();
 
   return (
     <div className='min-h-screen bg-gray-50 flex'>
       <div className='flex flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 w-full lg:w-1/2'>
         <div className='mx-auto w-full max-w-sm lg:max-w-md'>
           <div className='mb-8'>
-            <Link href='/' className='inline-flex items-center'>
-              <div className='w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center'>
-                <Building className='h-5 w-5 text-white' />
-              </div>
-              <span className='ml-2 text-xl font-semibold'>
-                <span className='font-light text-blue-800'>
-                  Property<span className='font-semibold'>Manager</span>
-                </span>
-              </span>
-            </Link>
+            <RegisterLogo />
           </div>
 
           <div>
@@ -85,122 +21,55 @@ export default function Login() {
             </h2>
             <p className='mt-2 text-sm text-gray-600'>
               Don&apos;t have an account?{' '}
-              <Link
-                href='/register'
-                className='text-blue-600 hover:text-blue-500'
+              <span
+                onClick={() => (window.location.href = '/register')}
+                className='text-blue-600 hover:text-blue-500 cursor-pointer'
               >
                 Sign up
-              </Link>{' '}
+              </span>{' '}
               for free.
             </p>
 
-            {loginError && (
-              <div className='mt-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-md text-sm'>
-                {loginError}
-              </div>
-            )}
-
-            {success && (
-              <div className='mt-4 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-md text-sm'>
-                Login successful! Redirecting to dashboard...
-              </div>
-            )}
-
-            {isRegistered && (
-              <div className='mt-4 p-4 bg-blue-50 border-l-4 border-blue-500 text-blue-700 rounded-md text-sm'>
-                Registration successful! Please sign in with your new account.
-              </div>
-            )}
-
             <div className='mt-8 bg-white py-8 px-8 shadow-sm rounded-lg border border-gray-200'>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='space-y-6'>
-                  <div className='space-y-2'>
-                    <label
-                      htmlFor='email'
-                      className='block text-sm font-medium text-gray-700'
-                    >
-                      Email address
-                    </label>
-                    <input
-                      id='email'
-                      {...register('email')}
-                      type='email'
-                      autoComplete='email'
-                      className={`block w-full px-4 py-3 rounded-lg bg-gray-50 ${
-                        errors.email
-                          ? 'border-red-300 focus:ring-red-400'
-                          : 'border-gray-300 focus:ring-blue-500'
-                      } shadow-sm focus:ring-2 focus:outline-none`}
-                    />
-                    {errors.email && (
-                      <p className='mt-1 text-xs text-red-600'>
-                        {errors.email.message}
-                      </p>
-                    )}
-                  </div>
+              <form onSubmit={handleSubmit} className='space-y-6'>
+                <InputField
+                  label='Email address'
+                  name='email'
+                  type='email'
+                  value={formData.email}
+                  onChange={handleChange}
+                  error={errors.email}
+                />
 
-                  <div className='space-y-2'>
-                    <div className='flex justify-between'>
-                      <label
-                        htmlFor='password'
-                        className='block text-sm font-medium text-gray-700'
-                      >
-                        Password
-                      </label>
-                      <Link
-                        href='/forgot-password'
-                        className='text-sm text-blue-600 hover:text-blue-500'
-                      >
-                        Forgot password?
-                      </Link>
-                    </div>
-                    <div className='relative'>
-                      <input
-                        id='password'
-                        {...register('password')}
-                        type={showPassword ? 'text' : 'password'}
-                        autoComplete='current-password'
-                        className={`block w-full px-4 py-3 pr-10 rounded-lg bg-gray-50 ${
-                          errors.password
-                            ? 'border-red-300 focus:ring-red-400'
-                            : 'border-gray-300 focus:ring-blue-500'
-                        } shadow-sm focus:ring-2 focus:outline-none`}
-                      />
-                      <button
-                        type='button'
-                        className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600'
-                        onClick={() => setShowPassword(!showPassword)}
-                        tabIndex={-1}
-                      >
-                        {showPassword ? (
-                          <EyeOff className='h-5 w-5' aria-hidden='true' />
-                        ) : (
-                          <Eye className='h-5 w-5' aria-hidden='true' />
-                        )}
-                      </button>
-                    </div>
-                    {errors.password && (
-                      <p className='mt-1 text-xs text-red-600'>
-                        {errors.password.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className='flex items-center'>
-                    <input
-                      id='rememberMe'
-                      {...register('rememberMe')}
-                      type='checkbox'
-                      className='h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
-                    />
-                    <label
-                      htmlFor='rememberMe'
-                      className='ml-2 block text-sm text-gray-700'
-                    >
-                      Remember me
+                <div className='space-y-2'>
+                  <div className='flex justify-between items-center'>
+                    <label className='block text-sm font-medium text-gray-700'>
+                      Password
                     </label>
+                    <span className='text-sm text-blue-600 hover:text-blue-500 cursor-pointer'>
+                      Forgot password?
+                    </span>
                   </div>
+                  <PasswordField
+                    label=''
+                    name='password'
+                    value={formData.password}
+                    onChange={handleChange}
+                    error={errors.password}
+                  />
+                </div>
+
+                <div className='flex items-center'>
+                  <input
+                    name='rememberMe'
+                    type='checkbox'
+                    checked={formData.rememberMe}
+                    onChange={handleChange}
+                    className='h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
+                  />
+                  <label className='ml-2 block text-sm text-gray-700'>
+                    Remember me
+                  </label>
                 </div>
 
                 <button
@@ -219,7 +88,6 @@ export default function Login() {
       <div className='hidden lg:block relative lg:w-1/2'>
         <div className='absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700'>
           <div className='absolute inset-0 bg-black opacity-20'></div>
-
           <div className='absolute inset-0 flex flex-col justify-center items-start px-12'>
             <div className='max-w-md'>
               <h3 className='text-2xl font-semibold text-white'>
