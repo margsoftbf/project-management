@@ -1,3 +1,4 @@
+import { PropertyApi } from '@/lib/api';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -99,29 +100,15 @@ export function useRegisterForm() {
       setIsSubmitting(true);
       setRegisterError(null);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            password: formData.password,
-            role: formData.role,
-            privacyConsent: formData.privacyConsent,
-            marketingConsent: formData.marketingConsent,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Registration failed');
-      }
+      await PropertyApi.register({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+        privacyConsent: formData.privacyConsent,
+        marketingConsent: formData.marketingConsent,
+      });
 
       toast.success('Account created successfully! Redirecting to login...');
 
