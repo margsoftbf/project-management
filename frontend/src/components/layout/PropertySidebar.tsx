@@ -1,4 +1,3 @@
-// components/layouts/PropertySidebar.tsx
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -31,6 +30,7 @@ import {
   settingsMenuItems,
 } from './menuItems';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 interface PropertySidebarProps {
   role: 'admin' | 'landlord' | 'tenant';
@@ -52,7 +52,7 @@ export function PropertySidebar({
 }: PropertySidebarProps) {
   const { state } = useSidebar();
   const pathname = usePathname();
-
+  const router = useRouter();
   const menuItems = role === 'landlord' ? landlordMenuItems : tenantMenuItems;
 
   const isActiveMenuItem = (url: string) => {
@@ -82,23 +82,20 @@ export function PropertySidebar({
       <SidebarHeader className='border-b border-gray-200 bg-white'>
         <SidebarMenu>
           <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size='lg'
-                  className='data-[state=open]:bg-blue-50 data-[state=open]:text-blue-900 hover:bg-gray-50'
-                >
-                  <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-600 text-white'>
-                    <Building2 className='size-4' />
-                  </div>
-                  <div className='grid flex-1 text-left text-sm leading-tight'>
-                    <span className='truncate font-semibold text-gray-900'>
-                      PropertyManager
-                    </span>
-                  </div>
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-            </DropdownMenu>
+            <SidebarMenuButton
+              size='lg'
+              className='data-[state=open]:bg-blue-50 data-[state=open]:text-blue-900 hover:bg-gray-50'
+              onClick={() => router.push('/')}
+            >
+              <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-600 text-white'>
+                <Building2 className='size-4' />
+              </div>
+              <div className='grid flex-1 text-left text-sm leading-tight'>
+                <span className='truncate font-semibold text-gray-900'>
+                  Property Manager
+                </span>
+              </div>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

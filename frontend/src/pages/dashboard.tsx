@@ -6,6 +6,15 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { useSession, signOut } from 'next-auth/react';
 import PropertyLayout from '@/components/layout/PropertyLayout';
 import { PropertyApi } from '@/lib/api';
+import {
+  Building,
+  Users,
+  DollarSign,
+  AlertTriangle,
+  Activity,
+  Plus,
+  LogOut,
+} from 'lucide-react';
 
 export interface DashboardProps {
   userInfo: {
@@ -36,9 +45,21 @@ const DashboardPage = ({ userInfo }: DashboardProps) => {
   return (
     <>
       <Head>
-        <title>PropertyManager - Dashboard</title>
+        <title>Property Manager - Dashboard</title>
       </Head>
-      <PropertyLayout role={userInfo?.role || 'landlord'} userInfo={userInfo}>
+      <PropertyLayout
+        role={userInfo?.role}
+        userInfo={{
+          firstName: userInfo?.firstName,
+          lastName: userInfo?.lastName,
+          avatar: userInfo?.avatarUrl,
+          email: userInfo?.email,
+          phoneNumber: userInfo?.phoneNumber,
+          address: userInfo?.address,
+          city: userInfo?.city,
+          postalCode: userInfo?.postalCode,
+        }}
+      >
         <div className='space-y-6'>
           <div className='bg-white p-6 rounded-lg shadow'>
             <h1 className='text-3xl font-bold tracking-tight text-gray-900'>
@@ -67,19 +88,7 @@ const DashboardPage = ({ userInfo }: DashboardProps) => {
             <div className='bg-white p-6 rounded-lg shadow'>
               <div className='flex items-center'>
                 <div className='p-2 rounded-lg bg-blue-100'>
-                  <svg
-                    className='w-6 h-6 text-blue-600'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m0 0v-4a2 2 0 012-2h2a2 2 0 012 2v4'
-                    />
-                  </svg>
+                  <Building className='w-6 h-6 text-blue-600' />
                 </div>
                 <div className='ml-4'>
                   <p className='text-sm font-medium text-gray-600'>
@@ -93,19 +102,7 @@ const DashboardPage = ({ userInfo }: DashboardProps) => {
             <div className='bg-white p-6 rounded-lg shadow'>
               <div className='flex items-center'>
                 <div className='p-2 rounded-lg bg-green-100'>
-                  <svg
-                    className='w-6 h-6 text-green-600'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
-                    />
-                  </svg>
+                  <Users className='w-6 h-6 text-green-600' />
                 </div>
                 <div className='ml-4'>
                   <p className='text-sm font-medium text-gray-600'>Tenants</p>
@@ -117,19 +114,7 @@ const DashboardPage = ({ userInfo }: DashboardProps) => {
             <div className='bg-white p-6 rounded-lg shadow'>
               <div className='flex items-center'>
                 <div className='p-2 rounded-lg bg-purple-100'>
-                  <svg
-                    className='w-6 h-6 text-purple-600'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1'
-                    />
-                  </svg>
+                  <DollarSign className='w-6 h-6 text-purple-600' />
                 </div>
                 <div className='ml-4'>
                   <p className='text-sm font-medium text-gray-600'>Revenue</p>
@@ -141,19 +126,7 @@ const DashboardPage = ({ userInfo }: DashboardProps) => {
             <div className='bg-white p-6 rounded-lg shadow'>
               <div className='flex items-center'>
                 <div className='p-2 rounded-lg bg-red-100'>
-                  <svg
-                    className='w-6 h-6 text-red-600'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z'
-                    />
-                  </svg>
+                  <AlertTriangle className='w-6 h-6 text-red-600' />
                 </div>
                 <div className='ml-4'>
                   <p className='text-sm font-medium text-gray-600'>Issues</p>
@@ -168,19 +141,7 @@ const DashboardPage = ({ userInfo }: DashboardProps) => {
               <h3 className='text-lg font-semibold mb-4'>Recent Activities</h3>
               <div className='text-center py-8'>
                 <div className='text-gray-400 mb-4'>
-                  <svg
-                    className='w-12 h-12 mx-auto'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'
-                    />
-                  </svg>
+                  <Activity className='w-12 h-12 mx-auto' />
                 </div>
                 <p className='text-gray-500'>Coming Soon...</p>
                 <p className='text-sm text-gray-400 mt-2'>
@@ -192,24 +153,29 @@ const DashboardPage = ({ userInfo }: DashboardProps) => {
             <div className='bg-white p-6 rounded-lg shadow'>
               <h3 className='text-lg font-semibold mb-4'>Quick Actions</h3>
               <div className='space-y-3'>
-                <button className='w-full text-left p-3 rounded border-2 border-dashed border-gray-300 text-gray-500 hover:border-gray-400 transition-colors'>
-                  + Add New Property
+                <button className='w-full text-left p-3 rounded border-2 border-dashed border-gray-300 text-gray-500 hover:border-gray-400 transition-colors flex items-center'>
+                  <Plus className='w-4 h-4 mr-2' />
+                  Add New Property
                 </button>
-                <button className='w-full text-left p-3 rounded border-2 border-dashed border-gray-300 text-gray-500 hover:border-gray-400 transition-colors'>
-                  + Add New Tenant
+                <button className='w-full text-left p-3 rounded border-2 border-dashed border-gray-300 text-gray-500 hover:border-gray-400 transition-colors flex items-center'>
+                  <Plus className='w-4 h-4 mr-2' />
+                  Add New Tenant
                 </button>
-                <button className='w-full text-left p-3 rounded border-2 border-dashed border-gray-300 text-gray-500 hover:border-gray-400 transition-colors'>
-                  + Record Payment
+                <button className='w-full text-left p-3 rounded border-2 border-dashed border-gray-300 text-gray-500 hover:border-gray-400 transition-colors flex items-center'>
+                  <Plus className='w-4 h-4 mr-2' />
+                  Record Payment
                 </button>
               </div>
             </div>
           </div>
+
           <div className='bg-white p-6 rounded-lg shadow'>
             <h3 className='text-lg font-semibold mb-4'>Test Actions</h3>
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
-              className='px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors'
+              className='px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors flex items-center'
             >
+              <LogOut className='w-4 h-4 mr-2' />
               Sign Out
             </button>
           </div>

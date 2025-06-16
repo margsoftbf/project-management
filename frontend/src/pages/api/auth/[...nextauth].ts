@@ -47,18 +47,12 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          console.log('Logowanie:', credentials.email);
-
-          // 1. Login używając PropertyApi
           const { access_token } = await PropertyApi.login({
             email: credentials.email,
             password: credentials.password,
           });
-          console.log('Token otrzymany');
 
-          // 2. Pobierz dane usera używając PropertyApi
           const userInfo = await PropertyApi.getUserInfo(access_token);
-          console.log('User info pobrane:', userInfo.email);
 
           return {
             id: userInfo.slug,

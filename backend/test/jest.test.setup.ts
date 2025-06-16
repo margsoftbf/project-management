@@ -3,9 +3,6 @@ import { Logger } from '@nestjs/common';
 const originalLog = console.log;
 const originalError = console.error;
 
-console.log = (...args: any[]) => {
-  return;
-};
 
 console.error = (...args: any[]) => {
   if (args[0] && typeof args[0] === 'string') {

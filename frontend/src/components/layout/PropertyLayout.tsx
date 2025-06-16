@@ -67,7 +67,9 @@ const PropertyLayout: React.FC<PropertyLayoutProps> = ({
             <SidebarTrigger className='-ml-1 text-gray-600 hover:bg-gray-100' />
             <div className='h-4 w-px bg-gray-300' />
             <nav className='flex items-center space-x-2 text-sm'>
-              <span className='text-gray-500 font-medium'>PropertyManager</span>
+              <span className='text-gray-500 font-medium'>
+                Property Manager
+              </span>
               <span className='text-gray-300'>/</span>
               <span className='text-gray-900 font-semibold'>
                 {getHeaderTitle()}
