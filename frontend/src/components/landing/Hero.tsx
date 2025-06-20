@@ -3,15 +3,33 @@ import { Button } from '@/components/common/Button';
 import Image from 'next/image';
 import { Building, Key, ChartBar, ClipboardList } from 'lucide-react';
 import phoneFrame from '@/svg/phone-frame.svg';
+import { useSession } from 'next-auth/react';
 
 export function Hero() {
+  const { status } = useSession();
+  const isLoggedIn = status === 'authenticated';
+
+  const getPrimaryButtonProps = () => {
+    if (isLoggedIn) {
+      return {
+        href: '/dashboard',
+        children: 'Go to Dashboard',
+      };
+    }
+    return {
+      href: '/register',
+      children: 'Register Now',
+    };
+  };
+
+  const primaryButtonProps = getPrimaryButtonProps();
   return (
     <div className='overflow-hidden'>
       <div className='py-20 sm:py-32 lg:pb-32 xl:pb-36 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20'>
           <div className='relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6'>
             <h1 className='text-4xl font-medium tracking-tight text-gray-900'>
-              <span className='block font-light text-[#003566]'>
+              <span className='block font-light text-[#3b82f6]'>
                 Property <span className='font-semibold'>Management</span>
               </span>
               <span className='mt-3 block text-2xl'>Simplified.</span>
@@ -23,8 +41,10 @@ export function Hero() {
               professionals.
             </p>
             <div className='mt-8 flex flex-wrap gap-x-6 gap-y-4'>
-              <Button href='/register'>Register Now</Button>
-              <Button href='/features' variant='outline'>
+              <Button href={primaryButtonProps.href}>
+                {primaryButtonProps.children}
+              </Button>
+              <Button href='#features' variant='outline'>
                 <FeatureIcon className='h-6 w-6 flex-none' />
                 <span className='ml-2.5'>See Features</span>
               </Button>
@@ -62,7 +82,7 @@ export function Hero() {
                   key={name}
                   className='flex flex-col items-center border border-gray-100 rounded-lg p-3 shadow-sm bg-white lg:items-start hover:shadow-md transition-shadow duration-200'
                 >
-                  <span className='font-semibold text-[#003566]'>{name}</span>
+                  <span className='font-semibold text-[#3b82f6]'>{name}</span>
                   <span className='text-xs text-gray-500 text-center lg:text-left mt-2'>
                     {description}
                   </span>

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 interface LoginFormData {
@@ -12,6 +14,8 @@ interface LoginErrors {
 }
 
 export function useLoginForm() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -57,46 +61,24 @@ export function useLoginForm() {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password,
-          }),
-        }
-      );
+      const result = await signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
+      if (result?.error) {
+        toast.error('Invalid email or password. Please try again.');
+        return;
       }
 
-      const data = await response.json();
-
-      if (data.access_token) {
-        localStorage.setItem('access_token', data.access_token);
-
+      if (result?.ok) {
         toast.success('Login successful! Welcome back!');
-
-        setTimeout(() => {
-          window.location.href = '/dashboard';
-        }, 1500);
-      } else {
-        throw new Error('No access token received');
+        router.push('/dashboard');
       }
     } catch (error) {
       console.error('Login error:', error);
-
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Invalid email or password. Please try again.'
-      );
+      toast.error('An unexpected error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

@@ -2,10 +2,37 @@ import RegisterLogo from '@/components/register/RegisterLogo';
 import { useLoginForm } from '../hooks/useLoginForm';
 import InputField from '@/components/common/InputField';
 import PasswordField from '@/components/common/PasswordField';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 export default function Login() {
+  const { status } = useSession();
+  const router = useRouter();
+
   const { formData, errors, isSubmitting, handleChange, handleSubmit } =
     useLoginForm();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/dashboard');
+    }
+  }, [status, router]);
+
+  if (status === 'loading') {
+    return (
+      <div className='min-h-screen bg-gray-50 flex items-center justify-center'>
+        <div className='text-center'>
+          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto'></div>
+          <p className='mt-4 text-gray-600'>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === 'authenticated') {
+    return null;
+  }
 
   return (
     <div className='min-h-screen bg-gray-50 flex'>
